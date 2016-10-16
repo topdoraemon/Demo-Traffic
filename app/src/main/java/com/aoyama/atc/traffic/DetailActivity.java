@@ -30,6 +30,7 @@ public class DetailActivity extends AppCompatActivity {
         titleTextView.setText(getIntent().getStringExtra("Title"));
         detailTextView.setText(getIntent().getStringExtra("Detail"));
         imageView.setImageResource(getIntent().getIntExtra("Image",R.drawable.traffic_01));
+        //Button Back
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
