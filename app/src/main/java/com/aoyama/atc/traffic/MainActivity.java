@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -50,15 +51,29 @@ public class MainActivity extends AppCompatActivity {
         //ListVie Controller
         //Get Value from class
         MyConstant myConstant = new MyConstant();
-        int[] ints = myConstant.getInts();
+        final int[] ints = myConstant.getInts();
         //Get Value Form xml
-        String[] titleStrings = getResources().getStringArray(R.array.title);
-        String[] detailStrings = getResources().getStringArray(R.array.detail);
+        final String[] titleStrings = getResources().getStringArray(R.array.title);
+        final String[] detailStrings = getResources().getStringArray(R.array.detail);
 
         //create listview
         TrafficAdapter trafficAdapter = new TrafficAdapter(MainActivity.this,
                 titleStrings,detailStrings,ints);
         listView.setAdapter(trafficAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //คลิกที่ Detail Item แล้วให้ไปที่หน้า Detail  พร้อมส่งค่าใสในตัวค่า
+                Intent intent = new Intent(MainActivity.this,DetailActivity.class);
+                intent.putExtra("Title", titleStrings[position]);
+                intent.putExtra("Image", ints[position]);
+                intent.putExtra("Detail", detailStrings[position]);
+                startActivity(intent);
+
+
+            }
+        });
 
     } //Main Method กลุ่มของคำสั่ง
 }  //Main Class นี่คือ Class หลัก
